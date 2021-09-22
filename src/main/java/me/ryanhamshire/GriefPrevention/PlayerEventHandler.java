@@ -34,6 +34,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.block.data.Levelled;
 import org.bukkit.block.data.Waterlogged;
 import org.bukkit.command.Command;
@@ -1728,7 +1729,27 @@ class PlayerEventHandler implements Listener
         }
 
         //apply rules for containers and crafting blocks
-        if (clickedBlock != null && instance.config_claims_preventTheft && (
+        if (clickedBlock != null && (
+                // TODO: LWC Support
+                (event.getAction() == (Action.RIGHT_CLICK_BLOCK) &&
+                        !(clickedBlockType == Material.CHEST ||
+                                clickedBlockType == Material.TRAPPED_CHEST ||
+                                clickedBlockType == Material.FURNACE ||
+                                clickedBlockType == Material.DISPENSER ||
+                                clickedBlockType == Material.DROPPER ||
+                                clickedBlockType == Material.BARREL ||
+                                clickedBlockType == Material.BLAST_FURNACE ||
+                                clickedBlockType == Material.COMPOSTER ||
+                                clickedBlockType == Material.LECTERN ||
+                                clickedBlockType == Material.SMOKER ||
+                                clickedBlockType == Material.SHULKER_BOX ||
+                                clickedBlock.getState() instanceof ShulkerBox
+                                )
+
+
+                )
+
+                        && (
                 event.getAction() == Action.RIGHT_CLICK_BLOCK && (
                         (this.isInventoryHolder(clickedBlock) && clickedBlock.getType() != Material.LECTERN) ||
                                 clickedBlockType == Material.CAULDRON ||
